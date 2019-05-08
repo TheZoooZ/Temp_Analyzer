@@ -16,5 +16,10 @@ namespace DataAnalyzer
         {
             InitializeComponent();
         }
+
+        private void AuthorMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Tomasz Falarz");
+        }
     }
 }
