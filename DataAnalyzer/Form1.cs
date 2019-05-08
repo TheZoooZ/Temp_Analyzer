@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO.Ports;
+using System.Threading;
 
 namespace DataAnalyzer
 {
@@ -15,6 +17,16 @@ namespace DataAnalyzer
         public Form1()
         {
             InitializeComponent();
+            SerialPort serialPort = new SerialPort();
+            ConnectViaCOM COM_Conn = new ConnectViaCOM(ref serialPort);
+            COM_Conn.OpenSerialPort(serialPort);
+
+            while (true)
+            {
+                currentTextBox.Text = COM_Conn.ListenPort(serialPort);
+                Thread.Sleep(5000);
+            }
+
         }
 
         private void AuthorMenuItem_Click(object sender, EventArgs e)
