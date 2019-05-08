@@ -1,4 +1,4 @@
-# Furnance_Temp_Analyzer
+# Temp_Analyzer
 C# + Arduino(C++) project
 
 
