@@ -20,12 +20,16 @@ namespace DataAnalyzer
             SerialPort serialPort = new SerialPort();
             ConnectViaCOM COM_Conn = new ConnectViaCOM(ref serialPort);
             COM_Conn.OpenSerialPort(serialPort);
-
-            while (true)
+            if (serialPort.IsOpen)
             {
-                currentTextBox.Text = COM_Conn.ListenPort(serialPort);
-                Thread.Sleep(5000);
+                while (true)
+                {
+                    currentTextBox.Text = COM_Conn.ListenPort(serialPort);
+                    Thread.Sleep(5000);
+                    DataAggregator.GenerateLog();
+                }
             }
+
 
         }
 
