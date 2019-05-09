@@ -44,6 +44,8 @@
             this.currentTextBox = new System.Windows.Forms.TextBox();
             this.maxTextBox = new System.Windows.Forms.TextBox();
             this.minTextBox = new System.Windows.Forms.TextBox();
+            this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -83,9 +85,13 @@
             // 
             // connComMenuItem
             // 
+            this.connComMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.startToolStripMenuItem,
+            this.stopToolStripMenuItem});
             this.connComMenuItem.Name = "connComMenuItem";
             this.connComMenuItem.Size = new System.Drawing.Size(180, 22);
             this.connComMenuItem.Text = "Connect via COM";
+            this.connComMenuItem.Click += new System.EventHandler(this.ConnComMenuItem_Click);
             // 
             // aboutMenuItem
             // 
@@ -99,13 +105,13 @@
             // verMenuItem
             // 
             this.verMenuItem.Name = "verMenuItem";
-            this.verMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.verMenuItem.Size = new System.Drawing.Size(112, 22);
             this.verMenuItem.Text = "Version";
             // 
             // authorMenuItem
             // 
             this.authorMenuItem.Name = "authorMenuItem";
-            this.authorMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.authorMenuItem.Size = new System.Drawing.Size(112, 22);
             this.authorMenuItem.Text = "Author";
             this.authorMenuItem.Click += new System.EventHandler(this.AuthorMenuItem_Click);
             // 
@@ -201,6 +207,21 @@
             this.minTextBox.TabIndex = 9;
             this.minTextBox.Text = "69 °C";
             // 
+            // startToolStripMenuItem
+            // 
+            this.startToolStripMenuItem.Name = "startToolStripMenuItem";
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.startToolStripMenuItem.Text = "Start";
+            this.startToolStripMenuItem.Click += new System.EventHandler(this.StartToolStripMenuItem_Click);
+            // 
+            // stopToolStripMenuItem
+            // 
+            this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.stopToolStripMenuItem.Text = "Stop";
+            this.stopToolStripMenuItem.Visible = false;
+            this.stopToolStripMenuItem.Click += new System.EventHandler(this.StopToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -242,6 +263,8 @@
         private System.Windows.Forms.TextBox currentTextBox;
         private System.Windows.Forms.TextBox maxTextBox;
         private System.Windows.Forms.TextBox minTextBox;
+        private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem;
     }
 }
 
