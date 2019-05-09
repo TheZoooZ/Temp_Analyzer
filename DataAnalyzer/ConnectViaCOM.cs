@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO.Ports;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace DataAnalyzer
 {
@@ -17,7 +18,14 @@ namespace DataAnalyzer
         }
         public void OpenSerialPort(SerialPort serialPort)
         {
-            serialPort.Open();
+            try
+            {
+                serialPort.Open();
+            }
+            catch
+            {
+                MessageBox.Show("Device not available!");
+            }
         }
         public string ListenPort(SerialPort serialPort)
         {
