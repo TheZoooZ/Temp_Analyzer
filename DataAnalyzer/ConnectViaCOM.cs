@@ -34,7 +34,9 @@ namespace DataAnalyzer
         private string DataCorrection(string data)
         {
             data = data.Replace("\r", " °C");
-            return Regex.Match(data, @"(\w{2} °C)").ToString();
+            data = Regex.Match(data, @"(\w{2} °C)").ToString();
+            DataAggregator.AggregateData(data.Replace(" °C", ""));
+            return data;
         }
     }
 }
