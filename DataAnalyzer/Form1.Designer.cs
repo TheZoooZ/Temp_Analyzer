@@ -33,6 +33,8 @@
             this.logMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.connMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.connComMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.verMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.authorMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,8 +46,6 @@
             this.currentTextBox = new System.Windows.Forms.TextBox();
             this.maxTextBox = new System.Windows.Forms.TextBox();
             this.minTextBox = new System.Windows.Forms.TextBox();
-            this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -72,7 +72,7 @@
             // logMenuItem
             // 
             this.logMenuItem.Name = "logMenuItem";
-            this.logMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.logMenuItem.Size = new System.Drawing.Size(123, 22);
             this.logMenuItem.Text = "Open log";
             // 
             // connMenuItem
@@ -91,7 +91,20 @@
             this.connComMenuItem.Name = "connComMenuItem";
             this.connComMenuItem.Size = new System.Drawing.Size(180, 22);
             this.connComMenuItem.Text = "Connect via COM";
-            this.connComMenuItem.Click += new System.EventHandler(this.ConnComMenuItem_Click);
+            // 
+            // startToolStripMenuItem
+            // 
+            this.startToolStripMenuItem.Name = "startToolStripMenuItem";
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+            this.startToolStripMenuItem.Text = "Start";
+            this.startToolStripMenuItem.Click += new System.EventHandler(this.StartToolStripMenuItem_Click);
+            // 
+            // stopToolStripMenuItem
+            // 
+            this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.stopToolStripMenuItem.Text = "Stop";
+            this.stopToolStripMenuItem.Click += new System.EventHandler(this.StopToolStripMenuItem_Click);
             // 
             // aboutMenuItem
             // 
@@ -206,21 +219,6 @@
             this.minTextBox.Size = new System.Drawing.Size(52, 13);
             this.minTextBox.TabIndex = 9;
             this.minTextBox.Text = "69 °C";
-            // 
-            // startToolStripMenuItem
-            // 
-            this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.startToolStripMenuItem.Text = "Start";
-            this.startToolStripMenuItem.Click += new System.EventHandler(this.StartToolStripMenuItem_Click);
-            // 
-            // stopToolStripMenuItem
-            // 
-            this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.stopToolStripMenuItem.Text = "Stop";
-            this.stopToolStripMenuItem.Visible = false;
-            this.stopToolStripMenuItem.Click += new System.EventHandler(this.StopToolStripMenuItem_Click);
             // 
             // Form1
             // 

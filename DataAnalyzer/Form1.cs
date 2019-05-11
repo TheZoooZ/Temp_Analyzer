@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO.Ports;
 using System.Threading;
@@ -14,54 +7,53 @@ namespace DataAnalyzer
 {
     public partial class Form1 : Form
     {
+        Thread drawingThread;
+        SerialPort serialPort;
+        ConnectViaCOM connection;
         public Form1()
         {
             InitializeComponent();
-
+            serialPort = new SerialPort();
+            connection = new ConnectViaCOM(ref serialPort);
         }
         private void AuthorMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Tomasz Falarz");
         }
 
-        private void ConnComMenuItem_Click(object sender, EventArgs e)
-        {
-        }
-
-        public void UpdateTextFields()
-        {
-            SerialPort serialPort = new SerialPort();
-            ConnectViaCOM COM_Conn = new ConnectViaCOM(ref serialPort);
-            COM_Conn.OpenSerialPort(serialPort);
-            if (serialPort.IsOpen)
-            {
-                startToolStripMenuItem.Visible = false;
-                stopToolStripMenuItem.Visible = true;
-
-                while (true)
-                {
-                    currentTextBox.Text = COM_Conn.ListenPort(serialPort);
-                    avgTextBox.Text = DataAggregator.AvgValue();
-                    minTextBox.Text = DataAggregator.MinValue();
-                    maxTextBox.Text = DataAggregator.MaxValue();
-                }
-            }
-        }
-
         private void StartToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var threadStart = new ThreadStart(UpdateTextFields);
-            var thread = new Thread(threadStart);
-            thread.Start();
+            connection.ListenPort(serialPort);
+            ThreadStart startDrawing = new ThreadStart(delegate ()
+            {
+                while (drawingThread.ThreadState == ThreadState.Running)
+                {
+                    currentTextBox.Invoke(new Action(delegate ()
+                    {
+                        currentTextBox.Text = DataAggregator.CurrentValue();
+                    }));
+                    avgTextBox.Invoke(new Action(delegate ()
+                    {
+                        avgTextBox.Text = DataAggregator.AvgValue();
+                    }));
+                    minTextBox.Invoke(new Action(delegate ()
+                    {
+                        minTextBox.Text = DataAggregator.MinValue();
+                    }));
+                    maxTextBox.Invoke(new Action(delegate ()
+                    {
+                        maxTextBox.Text = DataAggregator.MaxValue();
+                    }));
+                }
+
+            });
+            drawingThread = new Thread(startDrawing);
+            drawingThread.Start();
         }
 
         private void StopToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var threadStart = new ThreadStart(UpdateTextFields);
-            var thread = new Thread(threadStart);
-            thread.Abort();
-            stopToolStripMenuItem.Visible = false;
-            startToolStripMenuItem.Visible = true;
+            connection.StopListeningPort(serialPort);
         }
     }
 }
