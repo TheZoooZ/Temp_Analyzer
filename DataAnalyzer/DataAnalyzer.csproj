@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="ConnectViaCOM.cs" />
     <Compile Include="DataAggregator.cs" />
+    <Compile Include="DataDrawer.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
