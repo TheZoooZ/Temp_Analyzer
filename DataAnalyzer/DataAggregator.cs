@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -10,22 +11,23 @@ namespace DataAnalyzer
 {
     class DataAggregator
     {
-        private static Dictionary<string,int> dataList = new Dictionary<string, int>();
+        private static Dictionary<string,float> dataList = new Dictionary<string, float>();
 
         public static void AggregateData(string data)
         {
             TruncateData(dataList);
             if (data != "")
             {
+                float parsedValue = float.Parse(data, CultureInfo.InvariantCulture.NumberFormat);
                 var time = Regex.Match(DateTime.Now.ToString(), @"(\w+:\w+:\w+)").ToString();
-                dataList.Add(time, int.Parse(data));
+                dataList.Add(time, parsedValue);
             }
                 
         }
         public static void GenerateLog()
         {
         }
-        private static void TruncateData(Dictionary<string,int> dataList)
+        private static void TruncateData(Dictionary<string,float> dataList)
         {
             if (dataList.Count > 100)
             {
