@@ -32,18 +32,33 @@ namespace DataAnalyzer
                 dataList.Remove(dataList.Keys.First());
             }
         }
+        public static string CurrentValue()
+        {
+            if(dataList.Count == 0)
+                return "0.00";
+            else
+                return dataList.Values.Last().ToString();
+        }
         public static string MaxValue()
         {
-            return dataList.Values.Max().ToString();
+            if (dataList.Count == 0)
+                return "0.00";
+            else
+                return dataList.Values.Max().ToString();
         }
         public static string MinValue()
         {
-            return dataList.Values.Min().ToString();
+            if (dataList.Count == 0)
+                return "0.00";
+            else
+                return dataList.Values.Min().ToString();
         }
         public static string AvgValue()
         {
-            return dataList.Values.Average().ToString();
+            if (dataList.Count == 0)
+                return "0.00";
+            else
+                return dataList.Values.Average().ToString();
         }
-
     }
 }
