@@ -1,7 +1,6 @@
 ﻿using System.IO.Ports;
-using System.Text.RegularExpressions;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace DataAnalyzer
 {
@@ -24,14 +23,13 @@ namespace DataAnalyzer
                     while (listeningThread.ThreadState == ThreadState.Running)
                     {
                         var val = serialPort.ReadLine();
-                        var dc = DataCorrection(serialPort.ReadLine());
-                        DataAggregator.AggregateData(dc.Replace("°C", ""));
+                        DataAggregator.AggregateData(val);
                     }
 
                 });
                 listeningThread = new Thread(ts);
 
-                if(listeningThread.ThreadState == ThreadState.Suspended)
+                if (listeningThread.ThreadState == ThreadState.Suspended)
                     listeningThread.Resume();
                 else
                     listeningThread.Start();
@@ -41,12 +39,6 @@ namespace DataAnalyzer
         {
             listeningThread.Suspend();
             serialPort.Close();
-        }
-        private string DataCorrection(string data)
-        {
-            data = data.Replace("\r", "°C");
-            data = Regex.Match(data, @"(\w{1,2}\.\w{2}°C)").ToString();
-            return data;
         }
         private void OpenSerialPort(SerialPort serialPort)
         {
