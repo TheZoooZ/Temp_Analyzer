@@ -12,7 +12,6 @@ namespace DataAnalyzer
 
         public static void AggregateData(string data)
         {
-
             TruncateData(dataList);
             data = DataCorrection(data);
             if (data != "")
@@ -26,12 +25,8 @@ namespace DataAnalyzer
         private static string DataCorrection(string data)
         {
             data = data.Replace("\r", "°C");
-            data = Regex.Match(data, @"(\w{1,2}\.\w{2}°C)").ToString();
+            data = Regex.Match(data, @"(\w{1,2}\.\w{2}°C)").ToString().Remove(data.Length-2,2);
             return data;
-        }
-        public static void GenerateLog()
-        {
-            throw new NotImplementedException();
         }
         private static void TruncateData(Dictionary<string, float> dataList)
         {
@@ -39,6 +34,10 @@ namespace DataAnalyzer
             {
                 dataList.Remove(dataList.Keys.First());
             }
+        }
+        public static void GenerateLog()
+        {
+            throw new NotImplementedException();
         }
         public static string CurrentValue()
         {
