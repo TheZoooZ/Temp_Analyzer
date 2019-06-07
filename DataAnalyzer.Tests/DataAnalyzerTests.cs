@@ -1,13 +1,15 @@
-﻿using NUnit.Framework;
-using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DataAnalyzer.Tests
 {
+    [TestClass]
     public class DataAnalyzerTests
     {
-        [Test]
-        public void DataCorrection_ShouldCorrectData()
+        [TestMethod]
+        public void ShouldNotAggregate()
         {
+            DataAggregator.AggregateData("22.22/r");
+            Assert.AreEqual(DataAggregator.CurrentValue(),22.22);
         }
     }
 }
