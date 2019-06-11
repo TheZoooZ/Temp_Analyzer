@@ -6,29 +6,37 @@ using System.Text.RegularExpressions;
 
 namespace DataAnalyzer
 {
-    public static class DataAggregator
+    public class DataAggregator
     {
-        private static Dictionary<string, float> dataList = new Dictionary<string, float>();
-
+        private static SortedDictionary<string, float> dataList = new SortedDictionary<string, float>();
         public static void AggregateData(string data)
         {
-            TruncateData(dataList);
+            TruncateData();
             data = DataCorrection(data);
             if (data != "")
             {
                 float parsedValue = float.Parse(data, CultureInfo.InvariantCulture.NumberFormat);
                 var time = Regex.Match(DateTime.Now.ToString(), @"(\w+:\w+:\w+)").ToString();
+
                 dataList.Add(time, parsedValue);
             }
 
         }
+        public static void ShowAllOfTheRecords()
+        {
+            foreach (var item in dataList)
+            {
+                Console.WriteLine($"{item.Key} {item.Value}");
+            }
+        }
         private static string DataCorrection(string data)
         {
             data = data.Replace("\r", "°C");
-            data = Regex.Match(data, @"(\w{1,2}\.\w{2}°C)").ToString().Remove(data.Length-2,2);
+            data = Regex.Match(data, @"(\w{1,2}\.\w{2}°C)").ToString().Remove(data.Length - 2, 2);
             return data;
         }
-        private static void TruncateData(Dictionary<string, float> dataList)
+
+        private static void TruncateData()
         {
             if (dataList.Count > 100)
             {
