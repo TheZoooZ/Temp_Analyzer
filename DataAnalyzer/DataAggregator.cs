@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace DataAnalyzer
 {
-    static class DataAggregator
+    public static class DataAggregator
     {
         private static Dictionary<string, float> dataList = new Dictionary<string, float>();
 
