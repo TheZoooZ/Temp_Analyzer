@@ -2,6 +2,9 @@
 using System.Windows.Forms;
 using System.IO.Ports;
 using System.Threading;
+using LiveCharts;
+using LiveCharts.WinForms;
+using LiveCharts.Wpf;
 
 namespace DataAnalyzer
 {
@@ -10,11 +13,28 @@ namespace DataAnalyzer
         Thread drawingThread;
         SerialPort serialPort;
         ConnectViaCOM connection;
+
+        ChartValues<double> chartValues = new ChartValues<double>();
+
+        Random rnd = new Random();
         public Form1()
         {
             InitializeComponent();
             serialPort = new SerialPort();
             connection = new ConnectViaCOM(ref serialPort);
+
+            timer1.Start();
+
+            cartesianChart1.Series = new SeriesCollection
+            {
+                new LineSeries
+                {
+                    Title = "Temperature [º]",
+                    Values = chartValues,
+                    PointGeometry = DefaultGeometries.Circle,
+                    PointGeometrySize = 5
+                }
+            };
         }
         private void AuthorMenuItem_Click(object sender, EventArgs e)
         {
@@ -31,6 +51,7 @@ namespace DataAnalyzer
                     currentTextBox.Invoke(new Action(delegate ()
                     {
                         currentTextBox.Text = DataAggregator.CurrentValue();
+                        chartValues.Add(double.Parse(DataAggregator.CurrentValue()));
                     }));
                     avgTextBox.Invoke(new Action(delegate ()
                     {
@@ -54,6 +75,11 @@ namespace DataAnalyzer
         private void StopToolStripMenuItem_Click(object sender, EventArgs e)
         {
             connection.StopListeningPort(serialPort);
+        }
+
+        private void Timer1_Tick(object sender, EventArgs e)
+        {
+            chartValues.Add(rnd.NextDouble());
         }
     }
 }
