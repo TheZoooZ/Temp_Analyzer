@@ -8,17 +8,17 @@ namespace DataAnalyzer
 {
     public static class DataAggregator
     {
-        private static Dictionary<string, float> dataList = new Dictionary<string, float>();
+        public static Dictionary<string, float> DataList { get; private set; }
 
         public static void AggregateData(string data)
         {
-            TruncateData(dataList);
+            TruncateData(DataList);
             data = DataCorrection(data);
             if (data != "")
             {
                 float parsedValue = float.Parse(data, CultureInfo.InvariantCulture.NumberFormat);
                 var time = Regex.Match(DateTime.Now.ToString(), @"(\w+:\w+:\w+)").ToString();
-                dataList.Add(time, parsedValue);
+                DataList.Add(time, parsedValue);
             }
 
         }
@@ -41,31 +41,31 @@ namespace DataAnalyzer
         }
         public static string CurrentValue()
         {
-            if (dataList.Count == 0)
+            if (DataList.Count == 0)
                 return "0.00";
             else
-                return dataList.Values.Last().ToString();
+                return DataList.Values.Last().ToString();
         }
         public static string MaxValue()
         {
-            if (dataList.Count == 0)
+            if (DataList.Count == 0)
                 return "0.00";
             else
-                return dataList.Values.Max().ToString();
+                return DataList.Values.Max().ToString();
         }
         public static string MinValue()
         {
-            if (dataList.Count == 0)
+            if (DataList.Count == 0)
                 return "0.00";
             else
-                return dataList.Values.Min().ToString();
+                return DataList.Values.Min().ToString();
         }
         public static string AvgValue()
         {
-            if (dataList.Count == 0)
+            if (DataList.Count == 0)
                 return "0.00";
             else
-                return dataList.Values.Average().ToString();
+                return DataList.Values.Average().ToString();
         }
     }
 }

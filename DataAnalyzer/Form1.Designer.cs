@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.applicationMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.logMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,7 +47,7 @@
             this.maxTextBox = new System.Windows.Forms.TextBox();
             this.minTextBox = new System.Windows.Forms.TextBox();
             this.cartesianChart1 = new LiveCharts.WinForms.CartesianChart();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.dispChartBtn = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,7 +66,8 @@
             // applicationMenuItem
             // 
             this.applicationMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.logMenuItem});
+            this.logMenuItem,
+            this.dispChartBtn});
             this.applicationMenuItem.Name = "applicationMenuItem";
             this.applicationMenuItem.Size = new System.Drawing.Size(80, 20);
             this.applicationMenuItem.Text = "Application";
@@ -75,7 +75,7 @@
             // logMenuItem
             // 
             this.logMenuItem.Name = "logMenuItem";
-            this.logMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.logMenuItem.Size = new System.Drawing.Size(180, 22);
             this.logMenuItem.Text = "Open log";
             // 
             // connMenuItem
@@ -92,7 +92,7 @@
             this.startToolStripMenuItem,
             this.stopToolStripMenuItem});
             this.connComMenuItem.Name = "connComMenuItem";
-            this.connComMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.connComMenuItem.Size = new System.Drawing.Size(180, 22);
             this.connComMenuItem.Text = "Connect via COM";
             // 
             // startToolStripMenuItem
@@ -182,7 +182,7 @@
             this.avgTextBox.ReadOnly = true;
             this.avgTextBox.Size = new System.Drawing.Size(52, 13);
             this.avgTextBox.TabIndex = 6;
-            this.avgTextBox.Text = "69 °C";
+            this.avgTextBox.Text = "--.-- °C";
             // 
             // currentTextBox
             // 
@@ -195,7 +195,7 @@
             this.currentTextBox.ReadOnly = true;
             this.currentTextBox.Size = new System.Drawing.Size(52, 13);
             this.currentTextBox.TabIndex = 7;
-            this.currentTextBox.Text = "69 °C";
+            this.currentTextBox.Text = "--.-- °C";
             // 
             // maxTextBox
             // 
@@ -208,7 +208,7 @@
             this.maxTextBox.ReadOnly = true;
             this.maxTextBox.Size = new System.Drawing.Size(52, 13);
             this.maxTextBox.TabIndex = 8;
-            this.maxTextBox.Text = "69 °C";
+            this.maxTextBox.Text = "--.-- °C";
             // 
             // minTextBox
             // 
@@ -221,28 +221,30 @@
             this.minTextBox.ReadOnly = true;
             this.minTextBox.Size = new System.Drawing.Size(52, 13);
             this.minTextBox.TabIndex = 9;
-            this.minTextBox.Text = "69 °C";
+            this.minTextBox.Text = "--.-- °C";
             // 
             // cartesianChart1
             // 
             this.cartesianChart1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.cartesianChart1.Location = new System.Drawing.Point(0, 60);
+            this.cartesianChart1.Location = new System.Drawing.Point(0, -146);
             this.cartesianChart1.Name = "cartesianChart1";
             this.cartesianChart1.Size = new System.Drawing.Size(452, 227);
             this.cartesianChart1.TabIndex = 10;
             this.cartesianChart1.Text = "cartesianChart1";
+            this.cartesianChart1.Visible = false;
             // 
-            // timer1
+            // dispChartBtn
             // 
-            this.timer1.Interval = 1000;
-            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
+            this.dispChartBtn.Name = "dispChartBtn";
+            this.dispChartBtn.Size = new System.Drawing.Size(180, 22);
+            this.dispChartBtn.Text = "Display Chart";
+            this.dispChartBtn.Click += new System.EventHandler(this.DispChartBtn_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(452, 287);
-            this.Controls.Add(this.cartesianChart1);
+            this.ClientSize = new System.Drawing.Size(452, 81);
             this.Controls.Add(this.minTextBox);
             this.Controls.Add(this.maxTextBox);
             this.Controls.Add(this.currentTextBox);
@@ -252,8 +254,8 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.cartesianChart1);
             this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(468, 326);
             this.Name = "Form1";
             this.Text = "Data Analyzer";
             this.menuStrip1.ResumeLayout(false);
@@ -283,7 +285,7 @@
         private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem;
         private LiveCharts.WinForms.CartesianChart cartesianChart1;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.ToolStripMenuItem dispChartBtn;
     }
 }
 

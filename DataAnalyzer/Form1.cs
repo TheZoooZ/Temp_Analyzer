@@ -4,6 +4,8 @@ using System.IO.Ports;
 using System.Threading;
 using LiveCharts;
 using LiveCharts.WinForms;
+using System.Drawing;
+using System.Linq;
 using LiveCharts.Wpf;
 
 namespace DataAnalyzer
@@ -22,19 +24,7 @@ namespace DataAnalyzer
             InitializeComponent();
             serialPort = new SerialPort();
             connection = new ConnectViaCOM(ref serialPort);
-
-            timer1.Start();
-
-            cartesianChart1.Series = new SeriesCollection
-            {
-                new LineSeries
-                {
-                    Title = "Temperature [º]",
-                    Values = chartValues,
-                    PointGeometry = DefaultGeometries.Circle,
-                    PointGeometrySize = 5
-                }
-            };
+            
         }
         private void AuthorMenuItem_Click(object sender, EventArgs e)
         {
@@ -50,20 +40,23 @@ namespace DataAnalyzer
                 {
                     currentTextBox.Invoke(new Action(delegate ()
                     {
-                        currentTextBox.Text = DataAggregator.CurrentValue();
-                        chartValues.Add(double.Parse(DataAggregator.CurrentValue()));
+                        currentTextBox.Text = DataAggregator.CurrentValue() + " °C";
+                        if (dispChartBtn.Checked)
+                        {
+                            ChartStuff();
+                        }
                     }));
                     avgTextBox.Invoke(new Action(delegate ()
                     {
-                        avgTextBox.Text = DataAggregator.AvgValue();
+                        avgTextBox.Text = DataAggregator.AvgValue() + " °C";
                     }));
                     minTextBox.Invoke(new Action(delegate ()
                     {
-                        minTextBox.Text = DataAggregator.MinValue();
+                        minTextBox.Text = DataAggregator.MinValue() + " °C";
                     }));
                     maxTextBox.Invoke(new Action(delegate ()
                     {
-                        maxTextBox.Text = DataAggregator.MaxValue();
+                        maxTextBox.Text = DataAggregator.MaxValue() + " °C";
                     }));
                 }
 
@@ -77,9 +70,28 @@ namespace DataAnalyzer
             connection.StopListeningPort(serialPort);
         }
 
-        private void Timer1_Tick(object sender, EventArgs e)
+        private void ChartStuff()
         {
-            chartValues.Add(rnd.NextDouble());
+            chartValues.Clear();
+            chartValues.AddRange(DataAggregator.DataList.Select(x=>double.Parse(x.Value.ToString())));
+        }
+
+        private void DispChartBtn_Click(object sender, EventArgs e)
+        {
+            switch (dispChartBtn.Checked)
+            {
+                case false:
+                    this.Size = new Size(468, 326);
+                    cartesianChart1.Visible = true;
+                    dispChartBtn.Checked = true;
+                    break;
+                case true:
+                    this.Size = new Size(468, 120);
+                    cartesianChart1.Visible = false;
+                    dispChartBtn.Checked = false;
+                    break;
+            }
+
         }
     }
 }
