@@ -8,7 +8,7 @@ namespace DataAnalyzer
 {
     public static class DataAggregator
     {
-        public static Dictionary<string, float> DataList { get; private set; }
+        public static readonly SortedDictionary<string, double> DataList = new SortedDictionary<string, double>();
 
         public static void AggregateData(string data)
         {
@@ -25,10 +25,11 @@ namespace DataAnalyzer
         private static string DataCorrection(string data)
         {
             data = data.Replace("\r", "°C");
-            data = Regex.Match(data, @"(\w{1,2}\.\w{2}°C)").ToString().Remove(data.Length-2,2);
+            data = Regex.Match(data, @"(\w{1,2}\.\w{2}°C)").ToString();
+            data = data.Remove(data.Length - 2);
             return data;
         }
-        private static void TruncateData(Dictionary<string, float> dataList)
+        private static void TruncateData(SortedDictionary<string, double> dataList)
         {
             if (dataList.Count > 100)
             {

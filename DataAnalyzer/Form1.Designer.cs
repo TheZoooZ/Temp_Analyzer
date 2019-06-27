@@ -31,6 +31,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.applicationMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.logMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dispChartBtn = new System.Windows.Forms.ToolStripMenuItem();
             this.connMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.connComMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,7 +48,6 @@
             this.maxTextBox = new System.Windows.Forms.TextBox();
             this.minTextBox = new System.Windows.Forms.TextBox();
             this.cartesianChart1 = new LiveCharts.WinForms.CartesianChart();
-            this.dispChartBtn = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -75,8 +75,15 @@
             // logMenuItem
             // 
             this.logMenuItem.Name = "logMenuItem";
-            this.logMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.logMenuItem.Size = new System.Drawing.Size(144, 22);
             this.logMenuItem.Text = "Open log";
+            // 
+            // dispChartBtn
+            // 
+            this.dispChartBtn.Name = "dispChartBtn";
+            this.dispChartBtn.Size = new System.Drawing.Size(144, 22);
+            this.dispChartBtn.Text = "Display Chart";
+            this.dispChartBtn.Click += new System.EventHandler(this.DispChartBtn_Click);
             // 
             // connMenuItem
             // 
@@ -92,7 +99,7 @@
             this.startToolStripMenuItem,
             this.stopToolStripMenuItem});
             this.connComMenuItem.Name = "connComMenuItem";
-            this.connComMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.connComMenuItem.Size = new System.Drawing.Size(168, 22);
             this.connComMenuItem.Text = "Connect via COM";
             // 
             // startToolStripMenuItem
@@ -232,13 +239,6 @@
             this.cartesianChart1.TabIndex = 10;
             this.cartesianChart1.Text = "cartesianChart1";
             this.cartesianChart1.Visible = false;
-            // 
-            // dispChartBtn
-            // 
-            this.dispChartBtn.Name = "dispChartBtn";
-            this.dispChartBtn.Size = new System.Drawing.Size(180, 22);
-            this.dispChartBtn.Text = "Display Chart";
-            this.dispChartBtn.Click += new System.EventHandler(this.DispChartBtn_Click);
             // 
             // Form1
             // 

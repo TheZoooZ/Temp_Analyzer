@@ -1,12 +1,11 @@
-﻿using System;
-using System.Windows.Forms;
-using System.IO.Ports;
-using System.Threading;
-using LiveCharts;
-using LiveCharts.WinForms;
-using System.Drawing;
-using System.Linq;
+﻿using LiveCharts;
 using LiveCharts.Wpf;
+using System;
+using System.Drawing;
+using System.IO.Ports;
+using System.Linq;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace DataAnalyzer
 {
@@ -16,15 +15,12 @@ namespace DataAnalyzer
         SerialPort serialPort;
         ConnectViaCOM connection;
 
-        ChartValues<double> chartValues = new ChartValues<double>();
 
-        Random rnd = new Random();
         public Form1()
         {
             InitializeComponent();
             serialPort = new SerialPort();
             connection = new ConnectViaCOM(ref serialPort);
-            
         }
         private void AuthorMenuItem_Click(object sender, EventArgs e)
         {
@@ -34,6 +30,7 @@ namespace DataAnalyzer
         private void StartToolStripMenuItem_Click(object sender, EventArgs e)
         {
             connection.ListenPort(serialPort);
+            var chart = new Chart(ref cartesianChart1);
             ThreadStart startDrawing = new ThreadStart(delegate ()
             {
                 while (drawingThread.ThreadState == ThreadState.Running)
@@ -41,10 +38,6 @@ namespace DataAnalyzer
                     currentTextBox.Invoke(new Action(delegate ()
                     {
                         currentTextBox.Text = DataAggregator.CurrentValue() + " °C";
-                        if (dispChartBtn.Checked)
-                        {
-                            ChartStuff();
-                        }
                     }));
                     avgTextBox.Invoke(new Action(delegate ()
                     {
@@ -58,6 +51,10 @@ namespace DataAnalyzer
                     {
                         maxTextBox.Text = DataAggregator.MaxValue() + " °C";
                     }));
+                    cartesianChart1.Invoke(new Action(delegate ()
+                    {
+                        chart.DrawChart(ref dispChartBtn, DataAggregator.DataList.Values.Reverse().Take(30).Reverse().ToArray());
+                    }));
                 }
 
             });
@@ -68,12 +65,6 @@ namespace DataAnalyzer
         private void StopToolStripMenuItem_Click(object sender, EventArgs e)
         {
             connection.StopListeningPort(serialPort);
-        }
-
-        private void ChartStuff()
-        {
-            chartValues.Clear();
-            chartValues.AddRange(DataAggregator.DataList.Select(x=>double.Parse(x.Value.ToString())));
         }
 
         private void DispChartBtn_Click(object sender, EventArgs e)
