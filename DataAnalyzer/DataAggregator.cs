@@ -60,33 +60,24 @@ namespace DataAnalyzer
         }
         public static string MaxValue()
         {
-            List<Data> dataset = new List<Data>();
-            dataset = dataList;
-
             if (dataList.Count == 0)
                 return "0.00";
             else
-                return dataset.Select(x=>x.Value).Max().ToString();
+                return dataList.Select(x=>x.Value).Max().ToString();
         }
         public static string MinValue()
         {
-            List<Data> dataset = new List<Data>();
-            dataset = dataList;
-
             if (dataList.Count == 0)
                 return "0.00";
             else
-                return dataset.Select(x => x.Value).Min().ToString();
+                return dataList.Select(x => x.Value).Min().ToString();
         }
         public static string AvgValue()
         {
-            List<Data> dataset = new List<Data>();
-            dataset = dataList;
-
             if (dataList.Count == 0)
                 return "0.00";
             else
-                return String.Format("{0:F2}", dataset.Select(x => x.Value).Average()).ToString();
+                return String.Format("{0:F2}", dataList.Select(x => x.Value).Average()).ToString();
         }
     }
 }

@@ -55,6 +55,7 @@ namespace DataAnalyzer
                     //{
                     //    //chart.DrawChart(ref dispChartBtn, DataAggregator.DataList.Values.Reverse().Take(30).Reverse().ToArray());
                     //}));
+                    Thread.Sleep(10000);
                 }
 
             });

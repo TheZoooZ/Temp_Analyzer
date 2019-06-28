@@ -24,7 +24,7 @@ namespace DataAnalyzer
                     {
                         var val = serialPort.ReadLine();
                         DataAggregator.AggregateData(val);
-                        Thread.Sleep(5000);
+                        Thread.Sleep(10000);
                     }
 
                 });
