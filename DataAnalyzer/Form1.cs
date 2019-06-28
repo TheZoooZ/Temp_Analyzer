@@ -51,10 +51,10 @@ namespace DataAnalyzer
                     {
                         maxTextBox.Text = DataAggregator.MaxValue() + " °C";
                     }));
-                    //cartesianChart1.Invoke(new Action(delegate ()
-                    //{
-                    //    //chart.DrawChart(ref dispChartBtn, DataAggregator.DataList.Values.Reverse().Take(30).Reverse().ToArray());
-                    //}));
+                    cartesianChart1.Invoke(new Action(delegate ()
+                    {
+                        chart.DrawChart(ref dispChartBtn, DataAggregator.dataList.Select(x=>x.Value));
+                    }));
                     Thread.Sleep(10000);
                 }
 

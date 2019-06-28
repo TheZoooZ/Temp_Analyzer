@@ -14,7 +14,7 @@ namespace DataAnalyzer
     }
     public class DataAggregator
     {
-        private static readonly List<Data> dataList = new List<Data>();
+        public static readonly List<Data> dataList = new List<Data>();
         public static void AggregateData(string data)
         {
             TruncateData();
@@ -45,7 +45,7 @@ namespace DataAnalyzer
 
         private static void TruncateData()
         {
-            if (dataList != null && dataList.Count > 100)
+            if (dataList != null && dataList.Count > 360)
             {
                 dataList.Remove(dataList.Last());
             }

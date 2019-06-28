@@ -28,17 +28,12 @@ namespace DataAnalyzer
             _chart = chart;
         }
 
-        public void DrawChart(ref ToolStripMenuItem btn, double[] newestData)
+        public void DrawChart(ref ToolStripMenuItem btn, IEnumerable<double> dataSet)
         {
             chartValues.Clear();
-            if (btn.Checked && newestData != null)
+            if (btn.Checked && dataSet.Count() != 0)
             {
-                if (chartValues.Count > 40)
-                {
-                    chartValues.Remove(chartValues.First());
-                }
-                
-                chartValues.AddRange(newestData);
+                chartValues.AddRange(dataSet.Reverse().Take(360).Reverse());
             }
 
         }
