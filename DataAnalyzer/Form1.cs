@@ -13,24 +13,17 @@ namespace DataAnalyzer
     {
         Thread drawingThread;
         SerialPort serialPort;
-        ConnectViaCOM connection;
-
-
+        ConnectViaCOM comConnection;
         public Form1()
         {
             InitializeComponent();
             serialPort = new SerialPort();
-            connection = new ConnectViaCOM(ref serialPort);
+            comConnection = new ConnectViaCOM(ref serialPort);
         }
-        private void AuthorMenuItem_Click(object sender, EventArgs e)
+        public void UpdateBoxes()
         {
-            MessageBox.Show("Tomasz Falarz");
-        }
-
-        private void StartToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            connection.ListenPort(serialPort);
             var chart = new Chart(ref cartesianChart1);
+
             ThreadStart startDrawing = new ThreadStart(delegate ()
             {
                 while (drawingThread.ThreadState == ThreadState.Running)
@@ -53,7 +46,7 @@ namespace DataAnalyzer
                     }));
                     cartesianChart1.Invoke(new Action(delegate ()
                     {
-                        chart.DrawChart(ref dispChartBtn, DataAggregator.dataList.Select(x=>x.Value));
+                        chart.DrawChart(ref dispChartBtn, DataAggregator.dataList.Select(x => x.Value));
                     }));
                     Thread.Sleep(10000);
                 }
@@ -61,11 +54,26 @@ namespace DataAnalyzer
             });
             drawingThread = new Thread(startDrawing);
             drawingThread.Start();
-        }
-
-        private void StopToolStripMenuItem_Click(object sender, EventArgs e)
+        } 
+        private void AuthorMenuItem_Click(object sender, EventArgs e)
         {
-            connection.StopListeningPort(serialPort);
+            MessageBox.Show("Tomasz Falarz");
+        }
+        private void EnableCOMConnection(object sender, EventArgs e)
+        {
+            comConnection.ListenPort(serialPort);
+            if (comConnection.Statement(serialPort))
+            {
+                connComMenuItem.Enabled = false;
+                disableCOMConnectionToolStripMenuItem.Enabled = true;
+                UpdateBoxes();
+            }
+        }
+        private void DisableCOMConnection(object sender, EventArgs e)
+        {
+            comConnection.StopListeningPort(serialPort);
+            disableCOMConnectionToolStripMenuItem.Enabled = false;
+            connComMenuItem.Enabled = true;
         }
 
         private void DispChartBtn_Click(object sender, EventArgs e)

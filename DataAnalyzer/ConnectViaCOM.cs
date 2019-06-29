@@ -36,6 +36,10 @@ namespace DataAnalyzer
                     listeningThread.Start();
             }
         }
+        public bool Statement(SerialPort serialPort)
+        {
+            return serialPort.IsOpen;
+        }
         public void StopListeningPort(SerialPort serialPort)
         {
             listeningThread.Suspend();
